@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var FRICTION = 500
 
 @onready var axis = Vector2.ZERO
+@onready var animationPlayer = $AnimationPlayer
+@onready var animationTree = $AnimationTree
+@onready var animationState = animationTree.get("parameters/playback")
 
 func _physics_process(delta):
 	move(delta)
@@ -18,10 +21,14 @@ func move(delta):
 	axis = get_input_axis()
 
 	if axis == Vector2.ZERO:
+		animationState.travel("Idle")
 		apply_friction(FRICTION * delta)
 	else:
+		animationState.travel("Run")
+		animationTree.set("parameters/Idle/blend_position",axis)
+		animationTree.set("parameters/Run/blend_position",axis)
+		
 		apply_movement(axis * ACCELERATION * delta)
-
 	move_and_slide()
 
 func apply_friction(amount):
@@ -31,7 +38,8 @@ func apply_friction(amount):
 		velocity = Vector2.ZERO
 
 func apply_movement(accel):
-
+	velocity += accel
+	velocity = velocity.limit_length(MAX_SPEED)
 
 #const ACC = 500
 #const MAX_SPEED = 100
@@ -82,5 +90,3 @@ func apply_movement(accel):
 
 
 
-	velocity += accel
-	velocity = velocity.limit_length(MAX_SPEED)
