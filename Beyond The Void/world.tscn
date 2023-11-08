@@ -38,13 +38,13 @@ position = Vector2(143, 67)
 position = Vector2(288, 65)
 
 [node name="Bush2" parent="." instance=ExtResource("2_8su33")]
-position = Vector2(215, 142)
+position = Vector2(156, 147)
 
 [node name="Bush4" parent="." instance=ExtResource("2_8su33")]
-position = Vector2(126, 25)
+position = Vector2(83, 30)
 
 [node name="Bush3" parent="." instance=ExtResource("2_8su33")]
-position = Vector2(60, 97)
+position = Vector2(53, 94)
 
 [node name="Bush5" parent="." instance=ExtResource("2_8su33")]
-position = Vector2(120, 146)
+position = Vector2(264, 125)
