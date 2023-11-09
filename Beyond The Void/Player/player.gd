@@ -9,37 +9,56 @@ extends CharacterBody2D
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 
-func _physics_process(delta):
-	move(delta)
+var state = MOVE
+enum{
+	MOVE,
+	ROLL,
+	ATTACK
+}
 
-func get_input_axis():
+
+func _ready():
+	animationTree.active = true
+
+func _physics_process(delta):
+	match state:
+		MOVE:
+			move_state(delta)
+		ROLL:
+			pass
+		ATTACK:
+			attack_state(delta)
+
+func move_state(delta):
 	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	axis.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
-	return axis.normalized()
-
-func move(delta):
-	axis = get_input_axis()
-
+	axis = axis.normalized()
+	
 	if axis == Vector2.ZERO:
 		animationState.travel("Idle")
-		apply_friction(FRICTION * delta)
+		if velocity.length() > (FRICTION * delta):
+			velocity -= velocity.normalized() * (FRICTION * delta)
+		else:
+			velocity = Vector2.ZERO
 	else:
 		animationState.travel("Run")
 		animationTree.set("parameters/Idle/blend_position",axis)
 		animationTree.set("parameters/Run/blend_position",axis)
+		animationTree.set("parameters/Attack/blend_position",axis)
 		
-		apply_movement(axis * ACCELERATION * delta)
+		velocity += (axis * ACCELERATION * delta)
+		velocity = velocity.limit_length(MAX_SPEED)
 	move_and_slide()
+	
+	if Input.is_action_pressed("Attack"):
+		state = ATTACK
 
-func apply_friction(amount):
-	if velocity.length() > amount:
-		velocity -= velocity.normalized() * amount
-	else:
-		velocity = Vector2.ZERO
+func attack_state(delta):
+	velocity = Vector2.ZERO
+	animationState.travel("Attack")
 
-func apply_movement(accel):
-	velocity += accel
-	velocity = velocity.limit_length(MAX_SPEED)
+func AttackAnimationFinished():
+	state = MOVE
 
 #const ACC = 500
 #const MAX_SPEED = 100
