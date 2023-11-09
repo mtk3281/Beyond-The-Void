@@ -20,7 +20,7 @@ enum{
 func _ready():
 	animationTree.active = true
 
-func _physics_process(delta):
+func _process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
@@ -53,12 +53,13 @@ func move_state(delta):
 	if Input.is_action_pressed("Attack"):
 		state = ATTACK
 
-func attack_state(delta):
+func attack_state(_delta):
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
 
 func AttackAnimationFinished():
 	state = MOVE
+
 
 #const ACC = 500
 #const MAX_SPEED = 100
