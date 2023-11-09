@@ -8,6 +8,7 @@ height = 26.0
 
 [node name="Bush" type="StaticBody2D"]
 y_sort_enabled = true
+collision_layer = 4
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

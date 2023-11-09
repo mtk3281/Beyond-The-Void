@@ -340,6 +340,7 @@ terrain_set_0/terrain_0/name = "sand"
 terrain_set_0/terrain_0/color = Color(0.901961, 0.113725, 0.0941176, 1)
 sources/0 = SubResource("TileSetAtlasSource_yn1oe")
 
-[node name="Tile" type="TileMap"]
+[node name="TileSand" type="TileMap"]
 tile_set = SubResource("TileSet_h2scl")
 format = 2
+layer_0/name = "layer0"

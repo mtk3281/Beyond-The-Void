@@ -239,6 +239,7 @@ transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_u
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_mask = 6
 script = ExtResource("1_c63aq")
 metadata/_edit_group_ = true
 
