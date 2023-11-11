@@ -783,7 +783,7 @@ graph_offset = Vector2(-19, -71)
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
-collision_mask = 6
+collision_mask = 14
 script = ExtResource("1_c63aq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -814,11 +814,13 @@ position = Vector2(0, -4)
 
 [node name="sword_hitbox" type="Area2D" parent="hit_pivot"]
 position = Vector2(17, 0)
-collision_mask = 4
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_pivot/sword_hitbox"]
 position = Vector2(-7, -1.19209e-06)
 shape = SubResource("CapsuleShape2D_70q4f")
 disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="area_entered" from="hit_pivot/sword_hitbox" to="." method="_on_sword_hitbox_area_entered"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c50c84egoo0et"]
+[gd_scene load_steps=9 format=3 uid="uid://c50c84egoo0et"]
 
 [ext_resource type="PackedScene" uid="uid://dhu3gygf8jlfb" path="res://World/tile_bocks.tscn" id="1_23eio"]
 [ext_resource type="PackedScene" uid="uid://byp73nvusayju" path="res://Player/player.tscn" id="1_el4sc"]
 [ext_resource type="PackedScene" uid="uid://c5bjnju4gigtd" path="res://World/tile.tscn" id="1_g0yfc"]
 [ext_resource type="PackedScene" uid="uid://dx0xl1cv0d7gm" path="res://World/bush.tscn" id="2_8su33"]
 [ext_resource type="PackedScene" uid="uid://de47vcqafdvkm" path="res://World/grass.tscn" id="5_i1uvu"]
+[ext_resource type="PackedScene" uid="uid://oxffo1n705l3" path="res://Enemies/bat.tscn" id="6_a8m1p"]
 
 [sub_resource type="Image" id="Image_rf6yl"]
 data = {
@@ -87,3 +88,12 @@ position = Vector2(31, 29)
 
 [node name="Grass4" parent="Grass" instance=ExtResource("5_i1uvu")]
 position = Vector2(47, 29)
+
+[node name="Bat" parent="." instance=ExtResource("6_a8m1p")]
+position = Vector2(31, 141)
+
+[node name="Bat2" parent="." instance=ExtResource("6_a8m1p")]
+position = Vector2(207, 12)
+
+[node name="Bat3" parent="." instance=ExtResource("6_a8m1p")]
+position = Vector2(284, 142)
