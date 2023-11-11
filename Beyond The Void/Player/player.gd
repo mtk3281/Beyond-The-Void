@@ -9,6 +9,8 @@ extends CharacterBody2D
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 
+var roll_vector = Vector2.LEFT
+
 var state = MOVE
 enum{
 	MOVE,
@@ -20,12 +22,12 @@ enum{
 func _ready():
 	animationTree.active = true
 
-func _process(delta):
+func _physics_process(delta):
 	match state:
 		MOVE:
 			move_state(delta)
 		ROLL:
-			pass
+			roll_state(delta)
 		ATTACK:
 			attack_state(delta)
 
@@ -41,25 +43,38 @@ func move_state(delta):
 		else:
 			velocity = Vector2.ZERO
 	else:
+		roll_vector = axis 
 		animationState.travel("Run")
 		animationTree.set("parameters/Idle/blend_position",axis)
 		animationTree.set("parameters/Run/blend_position",axis)
 		animationTree.set("parameters/Attack/blend_position",axis)
+		animationTree.set("parameters/Roll/blend_position",axis)
 		
 		velocity += (axis * ACCELERATION * delta)
 		velocity = velocity.limit_length(MAX_SPEED)
+		
 	move_and_slide()
 	
 	if Input.is_action_pressed("Attack"):
 		state = ATTACK
+	
+	if Input.is_action_pressed("Roll"):
+		state = ROLL
 
 func attack_state(_delta):
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
 
+func roll_state(_delta):
+	velocity = roll_vector * MAX_SPEED * 1.2
+	animationState.travel("Roll")
+	move_and_slide()
+
 func AttackAnimationFinished():
 	state = MOVE
 
+func RollAnimationFinished():
+	state = MOVE
 
 #const ACC = 500
 #const MAX_SPEED = 100
@@ -109,4 +124,6 @@ func AttackAnimationFinished():
 #	move_and_slide()
 
 
-
+func _on_sword_hitbox_area_entered(area):
+	if area.name == "Grass_Area2D":
+		area.get_parent().grass_kill = true
