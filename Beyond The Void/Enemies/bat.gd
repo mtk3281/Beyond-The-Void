@@ -10,6 +10,7 @@ var knockback_strength = 2.0
 func _physics_process(delta):
 	velocity = velocity.move_toward(Vector2.ZERO, 200 * delta)
 	move_and_slide()
+	print("Hello")
 	if chase:
 		position += (player.position - position)/speed
 
