@@ -779,7 +779,7 @@ states/Run/node = SubResource("AnimationNodeBlendSpace2D_ptyjo")
 states/Run/position = Vector2(582, 100.25)
 states/Start/position = Vector2(200.5, 100)
 transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_uhea4"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_of30v"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_vd1eh"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_jevh7"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_476gc"), "Roll", "Idle", SubResource("AnimationNodeStateMachineTransition_no4rd"), "Idle", "Roll", SubResource("AnimationNodeStateMachineTransition_tk6au")]
-graph_offset = Vector2(-19, -71)
+graph_offset = Vector2(-637, -71)
 
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -804,13 +804,14 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_01kky")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Roll/blend_position = Vector2(0, 0)
-parameters/Run/blend_position = Vector2(0, 0)
+parameters/Attack/blend_position = Vector2(0, 1)
+parameters/Idle/blend_position = Vector2(0, 1)
+parameters/Roll/blend_position = Vector2(0, 1)
+parameters/Run/blend_position = Vector2(0, 1)
 
 [node name="hit_pivot" type="Marker2D" parent="."]
 position = Vector2(0, -4)
+rotation = 1.5708
 
 [node name="sword_hitbox" type="Area2D" parent="hit_pivot"]
 position = Vector2(17, 0)

@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 
-var roll_vector = Vector2.LEFT
+var roll_vector = Vector2.DOWN
 
 var state = MOVE
 enum{
