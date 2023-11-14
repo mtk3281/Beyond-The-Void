@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var init_pos = position
 
+const hit_effect = preload("res://Enemies/player_hit_effect.tscn")
 var player = null
 var rotation_angle = rotation
 var health = GlobalVar.Bat_health
@@ -34,11 +35,12 @@ func _physics_process(delta):
 #			velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 #			move_and_slide()
 		CHASE: 
-#			position += (player.position - position)/SPEED
-			rotation = position.angle_to_point(player.global_position) - deg_to_rad(90)
-			var dir = (player.global_position - global_position ).normalized()
-			velocity = velocity.move_toward(dir * SPEED, ACC * delta)
-			move_and_slide()
+			position += (player.position - position)/SPEED
+#			if player != null:
+#				rotation = position.angle_to_point(player.global_position) - deg_to_rad(90)
+#			var dir = (player.global_position - global_position ).normalized()
+#			velocity = velocity.move_toward(dir * SPEED, ACC * delta)
+#			move_and_slide()
 			
 #			$Bat_Sprite.flip_h = velocity.x < 0
 		WANDER:
@@ -60,6 +62,10 @@ func _on_hurt_box_area_entered(area):
 		var direction = global_position.direction_to(pl.global_position) * -1
 		velocity += direction * 115
 		health -= GlobalVar.Hit_Damage
+		
+		var hitted = hit_effect.instantiate()
+		get_parent().add_child(hitted)
+		hitted.global_position = position
 		
 		if health == 0:
 			var dead_obj = Dead_anim.instantiate()

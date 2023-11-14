@@ -20,14 +20,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x5nkw")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 9.0
+"speed": 7.0
 }]
 
 [node name="Player_Hit_Effect" type="AnimatedSprite2D"]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_0acee")
+autoplay = "default"
 frame_progress = 0.584348
 script = ExtResource("2_6y82g")
 
