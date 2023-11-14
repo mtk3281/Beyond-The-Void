@@ -76,7 +76,7 @@ script = SubResource("GDScript_phib7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oiysj")
-animation = &"GrassCut"
+animation = &"Grass"
 autoplay = "Grass"
 centered = false
 offset = Vector2(-8, -8)
