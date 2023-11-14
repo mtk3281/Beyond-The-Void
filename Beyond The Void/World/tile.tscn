@@ -1,9 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5bjnju4gigtd"]
 
-[ext_resource type="Texture2D" uid="uid://du2grqus0dvgy" path="res://World/DirtTileset.png" id="1_7pkdh"]
+[ext_resource type="Texture2D" uid="uid://dxp65t41u7ioa" path="res://VoidAssets/Void-DirtTileset.png" id="1_c0pkh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yn1oe"]
-texture = ExtResource("1_7pkdh")
+texture = ExtResource("1_c0pkh")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
