@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://4ym5ic32kqsw"]
+
+[ext_resource type="Script" path="res://UI/GUI.gd" id="1_cn86u"]
+[ext_resource type="Texture2D" uid="uid://brr6m6bflhhii" path="res://UI/VoidGuy-Head UI.png" id="2_kjcyq"]
+[ext_resource type="Texture2D" uid="uid://cfdbwevssm0ld" path="res://UI/HeartSpriteSheet.png" id="3_f0oxb"]
+[ext_resource type="Texture2D" uid="uid://4sjxsynobjis" path="res://Coin/CoinSprite.png" id="4_lspr3"]
+[ext_resource type="FontFile" uid="uid://cjb665uclhon4" path="res://UI/Fonts/Pixelfy.ttf" id="5_rwnmh"]
+[ext_resource type="PackedScene" uid="uid://dm6q0abakck7u" path="res://JS/Scenes/joystick.tscn" id="6_00vmk"]
+[ext_resource type="Texture2D" uid="uid://dekr8w4xujoib" path="res://UI/Sword.png" id="7_luhyp"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_cn86u")
+
+[node name="PlayerHead" type="Sprite2D" parent="."]
+position = Vector2(20, 25)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_kjcyq")
+
+[node name="Heart" type="Sprite2D" parent="."]
+position = Vector2(39, 29)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_f0oxb")
+hframes = 5
+
+[node name="CoinCount" type="Sprite2D" parent="."]
+position = Vector2(20, 49)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("4_lspr3")
+hframes = 8
+
+[node name="CoinCount Label" type="Label" parent="."]
+offset_left = 33.0
+offset_top = 39.0
+offset_right = 65.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("5_rwnmh")
+
+[node name="Joystick" parent="." instance=ExtResource("6_00vmk")]
+position = Vector2(42, 141)
+scale = Vector2(1.2, 1.2)
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Joystick"]
+position = Vector2(178.333, -13.3333)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("7_luhyp")
+action = "Attack"

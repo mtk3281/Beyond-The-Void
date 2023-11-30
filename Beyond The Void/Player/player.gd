@@ -9,17 +9,22 @@ extends CharacterBody2D
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
 
+@onready var joystick = get_parent().get_node_or_null("CanvasLayer").get_node("Joystick")
+
 var roll_vector = Vector2.DOWN
+#var Health = Player_Data.Health
 
 var state = MOVE
 enum{
 	MOVE,
 	ROLL,
-	ATTACK
+	ATTACK,
+	DEAD
 }
 
 
 func _ready():
+	print(joystick)
 	animationTree.active = true
 
 func _physics_process(delta):
@@ -30,12 +35,23 @@ func _physics_process(delta):
 			roll_state(delta)
 		ATTACK:
 			attack_state(delta)
+		DEAD:
+			dead()
+			
+	if Player_Data.Coin == 10:
+			await get_tree().create_timer(1).timeout
+			get_tree().change_scene_to_file("res://Level_Completed.tscn") #Level Completed Screen
+			Player_Data.Coin = 0
 
 func move_state(delta):
-	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	axis.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
-	axis = axis.normalized()
-	
+	#For Keyboard
+#	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+#	axis.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"))
+#	axis = axis.normalized()
+
+	#For Touchscreen
+	axis = joystick.posVector
+
 	if axis == Vector2.ZERO:
 		animationState.travel("Idle")
 		if velocity.length() > (FRICTION * delta):
@@ -60,6 +76,9 @@ func move_state(delta):
 	
 	if Input.is_action_pressed("Roll"):
 		state = ROLL
+		
+	if Player_Data.Health <= 0:
+		state = DEAD
 
 func attack_state(_delta):
 	velocity = Vector2.ZERO
@@ -127,3 +146,26 @@ func RollAnimationFinished():
 func _on_sword_hitbox_area_entered(area):
 	if area.name == "Grass_Area2D":
 		area.get_parent().grass_kill = true
+		
+func dead():
+	animationState.travel("Dead")
+	await get_tree().create_timer(1).timeout
+	Player_Data.Health = 4
+	Player_Data.Coin = 0
+	get_tree().reload_current_scene()
+	
+func hit_flash():
+	$Sprite2D.material.set_shader_parameter("flash_modifier",0.7)
+	await get_tree().create_timer(0.3).timeout
+	$Sprite2D.material.set_shader_parameter("flash_modifier",0)	
+	
+func on_states_reset():
+	state = MOVE
+
+func _on_hit_box_area_entered(area):
+	if area.name != "Detection_Area":
+		#area.get_parent().retreat()
+		hit_flash()
+		Player_Data.Health -= 1
+		
+

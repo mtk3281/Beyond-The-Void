@@ -19,6 +19,10 @@ var knockback_strength = 2.0
 
 var Dead_anim = preload("res://Effects/enemy_death_effect.tscn")
 
+func _ready():
+	#player = get_parent().get_parent().get_node("Player")
+	player = get_parent().get_node("Player")
+	
 
 func _physics_process(delta):
 #	velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -49,15 +53,18 @@ func _physics_process(delta):
 func _on_detection_area_body_entered(body):
 	if body.name=="Player":
 		state = CHASE
-		player = body
+		#player = body
 
 func _on_detection_area_body_exited(body):
+	#player = null
 	if body.name=="Player":
 		state = IDLE
-		player = null
+	
 
 func _on_hurt_box_area_entered(area):
 	if area.get_parent().get_parent().name == "Player":
+		#var ar = area.global_position
+		
 		var pl = area.get_parent().get_parent()
 		var direction = global_position.direction_to(pl.global_position) * -1
 		velocity += direction * 115
@@ -74,3 +81,10 @@ func _on_hurt_box_area_entered(area):
 			dead_obj.play("Animate")
 			queue_free()
 			
+func retreat():
+	state = IDLE
+	$Timer.start()
+
+func _on_timer_timeout():
+	if state == IDLE:
+		state = CHASE

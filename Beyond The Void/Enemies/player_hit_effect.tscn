@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnwoxqq2dputr"]
+[gd_scene load_steps=6 format=3 uid="uid://bnne5qugofoq1"]
 
 [ext_resource type="Texture2D" uid="uid://bnbt1cdwk5fa8" path="res://Effects/HitEffect.png" id="1_em4i7"]
 [ext_resource type="Script" path="res://Enemies/player_hit_effect.gd" id="2_6y82g"]
